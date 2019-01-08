@@ -2,6 +2,7 @@
 
 #include "AirAlertGameModeBase.h"
 
-
-
-
+AAirAlertGameModeBase::AAirAlertGameModeBase()
+{
+	EnemySpawnController = CreateDefaultSubobject<UEnemySpawnController>(TEXT("EnemySpawnController"));
+}

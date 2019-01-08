@@ -6,6 +6,26 @@
 #include "Components/ActorComponent.h"
 #include "EnemySpawnController.generated.h"
 
+USTRUCT(BlueprintType)
+struct FEnemySpawnInfo
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
+	TSubclassOf<APawn> EnemyClass = APawn::StaticClass();
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemies")
+	FTransform SpawnTranform;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemies")
+	int NumOfEnemies;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemies")
+	float SpawnDelay;
+	
+};
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class AIRALERT_API UEnemySpawnController : public UActorComponent
@@ -14,16 +34,33 @@ class AIRALERT_API UEnemySpawnController : public UActorComponent
 
 public:	
 	// Sets default values for this component's properties
-	UEnemySpawnController();
+	//UEnemySpawnController();
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	void StartSpawnStage();
+	
+	void SpawnEnemy();
+
+	FEnemySpawnInfo SpawnStage;
+
+	int EnemiesSpawned;
+
+	FTimerHandle ChangeStageTimer;
+	FTimerHandle EnemySpawnTimer;
+
 public:	
 	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
+	TArray<FEnemySpawnInfo> SpawnStages;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
+	float StageMinDelay;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
+	float StageMaxDelay;
 };
