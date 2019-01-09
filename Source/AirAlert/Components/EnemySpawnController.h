@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Pawns/EnemyPawn.h"
 #include "EnemySpawnController.generated.h"
 
 USTRUCT(BlueprintType)
@@ -13,7 +14,7 @@ struct FEnemySpawnInfo
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
-	TSubclassOf<APawn> EnemyClass = APawn::StaticClass();
+	TSubclassOf<AEnemyPawn> EnemyClass = AEnemyPawn::StaticClass();
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemies")
@@ -51,6 +52,8 @@ protected:
 	FTimerHandle ChangeStageTimer;
 	FTimerHandle EnemySpawnTimer;
 
+	FRandomStream Random;
+
 public:	
 	// Called every frame
 	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -63,4 +66,5 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
 	float StageMaxDelay;
+
 };

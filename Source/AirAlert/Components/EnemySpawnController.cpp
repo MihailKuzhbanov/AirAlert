@@ -17,21 +17,21 @@
 // Called when the game starts
 void UEnemySpawnController::BeginPlay()
 {
+
 	Super::BeginPlay();
 
-	// ...
-	
-	SpawnStage = FEnemySpawnInfo();
-	SpawnStage.NumOfEnemies = 10;
-	SpawnStage.SpawnDelay = 1.f;
+	Random.GenerateNewSeed();
 	
 	StartSpawnStage();
+
 }
 
 void UEnemySpawnController::StartSpawnStage()
 {
+	SpawnStage = SpawnStages[Random.RandRange(0,SpawnStages.Num()-1)];
+
 	GetWorld()->GetTimerManager().SetTimer(EnemySpawnTimer, this, &UEnemySpawnController::SpawnEnemy, SpawnStage.SpawnDelay, true, SpawnStage.SpawnDelay);
-	
+
 }
 
 void UEnemySpawnController::SpawnEnemy()
@@ -39,7 +39,7 @@ void UEnemySpawnController::SpawnEnemy()
 	//UE_LOG(LogTemp, Log, TEXT("Spawned enemy"));
 
 	FActorSpawnParameters SpawnParameters;
-	GetWorld()->SpawnActor<APawn>(SpawnStage.EnemyClass, SpawnStage.SpawnTranform, SpawnParameters);
+	GetWorld()->SpawnActor<AEnemyPawn>(SpawnStage.EnemyClass, SpawnStage.SpawnTranform, SpawnParameters);
 	
 	EnemiesSpawned++;
 	if (EnemiesSpawned >= SpawnStage.NumOfEnemies)
