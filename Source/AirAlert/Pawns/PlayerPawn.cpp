@@ -17,10 +17,10 @@ APlayerPawn::APlayerPawn()
 	PrimaryActorTick.bCanEverTick = true;
 
 	PawnCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("PawnCollision"));
-	SetRootComponent(PawnCollision);
+	RootComponent = PawnCollision;
 
 	PawnMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PawnMesh"));
-	PawnMesh->SetupAttachment(RootComponent);
+	PawnMesh->SetupAttachment(PawnCollision, NAME_None);
 
 	//CamSpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("CamSpringArm"));
 	//CamSpringArm->SetupAttachment(RootComponent);
