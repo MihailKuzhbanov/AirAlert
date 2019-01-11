@@ -33,11 +33,11 @@ class AIRALERT_API UShootComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
+	
 	UShootComponent();
 
 protected:
-	// Called when the game starts
+	
 	virtual void BeginPlay() override;
 
 	void Shoot();
@@ -45,7 +45,7 @@ protected:
 	FTimerHandle ShootingTimer;
 
 public:	
-	// Called every frame
+	
 	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Shooting")

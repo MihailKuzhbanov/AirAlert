@@ -26,11 +26,25 @@ void UEnemySpawnController::BeginPlay()
 
 }
 
+void UEnemySpawnController::Deactivate()
+{
+	Super::Deactivate();
+
+	GetWorld()->GetTimerManager().ClearTimer(ChangeStageTimer);
+	GetWorld()->GetTimerManager().ClearTimer(EnemySpawnTimer);
+}
+
+
 void UEnemySpawnController::StartSpawnStage()
 {
-	SpawnStage = SpawnStages[Random.RandRange(0,SpawnStages.Num()-1)];
+	
+	SpawnStage = SpawnStages[Random.RandRange(0, SpawnStages.Num() - 1)];
 
-	GetWorld()->GetTimerManager().SetTimer(EnemySpawnTimer, this, &UEnemySpawnController::SpawnEnemy, SpawnStage.SpawnDelay, true, SpawnStage.SpawnDelay);
+	EnemiesSpawned = 0;
+	SpawnEnemy();
+
+	float ChangeStageTime = Random.RandRange(StageMinDelay, StageMaxDelay) * ChangeStageTimeMultiplier;
+	GetWorld()->GetTimerManager().SetTimer(ChangeStageTimer, this, &UEnemySpawnController::StartSpawnStage, ChangeStageTime, false);
 
 }
 

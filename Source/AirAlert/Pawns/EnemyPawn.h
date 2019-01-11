@@ -6,6 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "Components/BoxComponent.h"
 #include "Components/ShootComponent.h"
+#include "Components/HealthComponent.h"
 #include "EnemyPawn.generated.h"
 
 UCLASS()
@@ -14,26 +15,32 @@ class AIRALERT_API AEnemyPawn : public APawn
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this pawn's properties
+	
 	AEnemyPawn();
 
 protected:
-	// Called when the game starts or when spawned
+	
 	virtual void BeginPlay() override;
+	UFUNCTION()
+		void DestroyPawn();
+
 
 public:	
-	// Called every frame
+	
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
+	
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pawn")
-	UBoxComponent* PawnCollision;
+		UBoxComponent* PawnCollision;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Pawn")
-	UStaticMeshComponent* PawnMesh;
+		UStaticMeshComponent* PawnMesh;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Shooting")
-	UShootComponent* ShootComponent;
+		UShootComponent* ShootComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Shooting")
+		UHealthComponent* HealthComponent;
 };

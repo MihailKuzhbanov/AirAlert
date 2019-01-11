@@ -40,7 +40,7 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-
+	virtual void Deactivate() override;
 	void StartSpawnStage();
 	
 	void SpawnEnemy();
@@ -66,5 +66,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
 	float StageMaxDelay;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
+		float ChangeStageTimeMultiplier;
 
 };

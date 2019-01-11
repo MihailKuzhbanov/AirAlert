@@ -3,6 +3,7 @@
 #include "ShootProjectile.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/DamageType.h"
+#include "GameFramework/Pawn.h"
 #include "Components/StaticMeshComponent.h"
 
 
@@ -42,9 +43,14 @@ void AShootProjectile::BeginPlay()
 
 void AShootProjectile::OnProjectileOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 BodyIndex, bool Sweep, const FHitResult& Hit)
 {
-//	AController* Instigator = GetOwner()->GetOwner();
-//	UGameplayStatics::ApplyDamage(OtherActor, Damage, , this, UDamageType::StaticClass());
+	if (!GetOwner()) return;
+	APawn* PawnOwner = Cast<APawn>(GetOwner());
+	if (!PawnOwner) return;
+	AController* Instigator = PawnOwner->GetController();
+	if (Instigator)
+	UGameplayStatics::ApplyDamage(OtherActor, Damage, Instigator, this, UDamageType::StaticClass());
 	UE_LOG(LogTemp, Log, TEXT("Projectile Ovelapped"));
+	Destroy();
 }
 
 // Called every frame
