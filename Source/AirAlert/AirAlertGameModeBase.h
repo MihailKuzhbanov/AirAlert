@@ -5,11 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "Components/EnemySpawnController.h"
+#include "Components/GameHealthComponent.h"
 #include "AirAlertGameModeBase.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class AIRALERT_API AAirAlertGameModeBase : public AGameModeBase
 {
@@ -19,7 +17,10 @@ class AIRALERT_API AAirAlertGameModeBase : public AGameModeBase
 public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Enemies")
-	UEnemySpawnController* EnemySpawnController;
+		UEnemySpawnController* EnemySpawnController;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Game Health")
+		UGameHealthComponent* HealthsComponent;
 	
 	
 };

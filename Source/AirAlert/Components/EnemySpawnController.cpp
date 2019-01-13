@@ -5,16 +5,6 @@
 #include "TimerManager.h"
 
 
-// Sets default values for this component's properties
-//UEnemySpawnController::UEnemySpawnController()
-//{
-//	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-//	// off to improve performance if you don't need them.
-//	//PrimaryComponentTick.bCanEverTick = true;
-//}
-
-
-// Called when the game starts
 void UEnemySpawnController::BeginPlay()
 {
 
@@ -50,8 +40,7 @@ void UEnemySpawnController::StartSpawnStage()
 
 void UEnemySpawnController::SpawnEnemy()
 {
-	//UE_LOG(LogTemp, Log, TEXT("Spawned enemy"));
-
+	
 	FActorSpawnParameters SpawnParameters;
 	GetWorld()->SpawnActor<AEnemyPawn>(SpawnStage.EnemyClass, SpawnStage.SpawnTranform, SpawnParameters);
 	
@@ -63,11 +52,4 @@ void UEnemySpawnController::SpawnEnemy()
 }
 
 
-// Called every frame
-//void UEnemySpawnController::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-//{
-//	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-//
-//	// ...
-//}
 

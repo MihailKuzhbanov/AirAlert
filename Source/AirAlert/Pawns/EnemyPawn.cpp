@@ -42,6 +42,10 @@ void AEnemyPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	float WorldMoveOffset = -100.f * DeltaTime;
+
+	AddActorWorldOffset(FVector(WorldMoveOffset, 0.f, 0.f));
+
 }
 
 void AEnemyPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

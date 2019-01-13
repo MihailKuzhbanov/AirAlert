@@ -9,6 +9,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FHealthEndedEvent);
 
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class AIRALERT_API UHealthComponent : public UActorComponent
 {
@@ -38,4 +39,5 @@ public:
 		float GetHealth();
 	UPROPERTY(BlueprintAssignable, Category = "Health")
 		FHealthEndedEvent OnHealthEnded;
+
 };
