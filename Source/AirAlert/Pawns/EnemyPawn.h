@@ -24,6 +24,9 @@ protected:
 	UFUNCTION()
 		void DestroyPawn();
 
+	UFUNCTION()
+	void OnEnemyOverlap(AActor* OverlappedActor, AActor* OtherActor);
+
 
 public:	
 	

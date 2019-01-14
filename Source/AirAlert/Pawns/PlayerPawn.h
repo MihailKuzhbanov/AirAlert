@@ -22,6 +22,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+
+
 	void OnTouchMove(ETouchIndex::Type FingerIndex, FVector Location);
 
 	void OnTouchPress(ETouchIndex::Type FingerIndex, FVector Location);
@@ -44,6 +46,11 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
+	
+	//void RecieveAnyDamage(float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
+
+
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Pawn")
 	UBoxComponent* PawnCollision;
 

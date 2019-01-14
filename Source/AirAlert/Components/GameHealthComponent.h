@@ -24,6 +24,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Game Health")
 	int Healths;
+	
+	UFUNCTION()
+	void OnPlayerDamaged(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Insigator, AActor* DamageCause);
 
 public:	
 	// Called every frame

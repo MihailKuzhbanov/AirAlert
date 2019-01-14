@@ -34,7 +34,6 @@ void AShootProjectile::BeginPlay()
 	if (GetOwner())
 	{
 		Collision->IgnoreActorWhenMoving(GetOwner(), true);
-		UE_LOG(LogTemp, Log, TEXT("OWNER"));
 	}
 
 	Collision->OnComponentBeginOverlap.AddDynamic(this, &AShootProjectile::OnProjectileOverlap);
@@ -49,7 +48,6 @@ void AShootProjectile::OnProjectileOverlap(UPrimitiveComponent* OverlappedComp, 
 	AController* Instigator = PawnOwner->GetController();
 	if (Instigator)
 	UGameplayStatics::ApplyDamage(OtherActor, Damage, Instigator, this, UDamageType::StaticClass());
-	UE_LOG(LogTemp, Log, TEXT("Projectile Ovelapped"));
 	Destroy();
 }
 

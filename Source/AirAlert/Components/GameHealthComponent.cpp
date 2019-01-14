@@ -1,9 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+
 
 #include "GameHealthComponent.h"
+#include "GameFramework/Pawn.h"
+#include "Kismet/GameplayStatics.h"
 
-
-// Sets default values for this component's properties
 UGameHealthComponent::UGameHealthComponent()
 	:
 	Healths(3)
@@ -11,17 +11,27 @@ UGameHealthComponent::UGameHealthComponent()
 
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
+	
 }
 
-
-// Called when the game starts
 void UGameHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
+	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
+
+	if (!PlayerPawn)
+	{
+		UE_LOG(LogTemp, Error, TEXT("No playerPawn!!"));
+		return;
+	}
 	
-	
+	PlayerPawn->OnTakeAnyDamage.AddDynamic(this, &UGameHealthComponent::OnPlayerDamaged);
+}
+
+void UGameHealthComponent::OnPlayerDamaged(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Insigator, AActor* DamageCause)
+{
+	ChangeHealth(-1);
 }
 
 void UGameHealthComponent::ChangeHealth(int ByValue)
@@ -33,6 +43,7 @@ void UGameHealthComponent::ChangeHealth(int ByValue)
 	{
 		HealthsEnded.Broadcast();
 	}
+	UE_LOG(LogTemp, Log, TEXT("Health changed: %i"), Healths);
 }
 
 int UGameHealthComponent::GetHealth()

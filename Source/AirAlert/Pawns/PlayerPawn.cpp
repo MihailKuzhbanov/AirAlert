@@ -36,11 +36,12 @@ void APlayerPawn::PossessedBy(AController * NewController)
 	PlayerController = Cast<APlayerController>(NewController);
 }
 
-// Called when the game starts or when spawned
+
 void APlayerPawn::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	//nActorBeginOverlap.AddDynamic(this, &);
 }
 
 
@@ -54,7 +55,7 @@ void APlayerPawn::Tick(float DeltaTime)
 	
 }
 
-// Called to bind functionality to input
+
 void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -63,6 +64,11 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	//InputComponent->BindTouch(EInputEvent::IE_Released, this, &APlayerPawn::OnTouchRelease);
 	InputComponent->BindTouch(IE_Repeat, this, &APlayerPawn::OnTouchMove);
 }
+
+//void APlayerPawn::RecieveAnyDamage(float Damage, const UDamageType * DamageType, AController * InstigatedBy, AActor * DamageCauser)
+//{
+
+//}
 
 
 
