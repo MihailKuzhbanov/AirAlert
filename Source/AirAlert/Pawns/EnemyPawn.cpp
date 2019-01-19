@@ -52,6 +52,7 @@ void AEnemyPawn::OnEnemyOverlap(AActor* OverlappedActor, AActor* OtherActor)
 
 void AEnemyPawn::Tick(float DeltaTime)
 {
+
 	Super::Tick(DeltaTime);
 
 	float WorldMoveOffset = -100.f * DeltaTime;

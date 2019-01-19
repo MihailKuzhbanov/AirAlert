@@ -37,6 +37,12 @@ void APlayerPawn::PossessedBy(AController * NewController)
 }
 
 
+bool APlayerPawn::CanBeDamaged_Implementation()
+{
+	return CanRecieveDamage;
+}
+
+
 void APlayerPawn::BeginPlay()
 {
 	Super::BeginPlay();
@@ -65,12 +71,13 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	InputComponent->BindTouch(IE_Repeat, this, &APlayerPawn::OnTouchMove);
 }
 
-//void APlayerPawn::RecieveAnyDamage(float Damage, const UDamageType * DamageType, AController * InstigatedBy, AActor * DamageCauser)
-//{
-
-//}
-
-
+float APlayerPawn::TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController * InstigatedBy, AActor * DamageCauser)
+{
+	if (!CanBeDamaged_Implementation()) return 0.f;
+	
+	Super::TakeDamage(Damage, DamageEvent, InstigatedBy, DamageCauser);
+	return Damage;
+}
 
 void APlayerPawn::OnTouchMove(ETouchIndex::Type FingerIndex, FVector Location)
 {

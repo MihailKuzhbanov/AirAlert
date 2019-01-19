@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -15,20 +13,22 @@ class AIRALERT_API APlayerPawn : public APawn
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this pawn's properties
+
 	APlayerPawn();
 
 protected:
-	// Called when the game starts or when spawned
+
 	virtual void BeginPlay() override;
-
-
 
 	void OnTouchMove(ETouchIndex::Type FingerIndex, FVector Location);
 
 	void OnTouchPress(ETouchIndex::Type FingerIndex, FVector Location);
-	//void OnTouchRelease(ETouchIndex::Type FingerIndex, FVector Location);
+	
 	virtual void PossessedBy(AController* NewController) override;
+	
+	UFUNCTION(BlueprintNativeEvent, Category = "Healths")
+		bool CanBeDamaged();
+	bool CanBeDamaged_Implementation();
 	
 	APlayerController* PlayerController;
 	
@@ -40,15 +40,12 @@ private:
 
 
 public:	
-	// Called every frame
+	
 	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
+	
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
-	
-	//void RecieveAnyDamage(float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
-
+	virtual float TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* InstigatedBy, AActor* DamageCauser) override;
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Pawn")
@@ -66,5 +63,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Controls")
 	float TouchMoveSensetivity;
 
-	
+	UPROPERTY(BlueprintReadWrite, Category = "Controls")
+		bool CanRecieveDamage;
 };
