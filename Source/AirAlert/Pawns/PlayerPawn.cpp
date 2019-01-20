@@ -4,6 +4,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/PlayerController.h"
+#include "Engine/World.h"
+#include "TimerManager.h"
 
 
 
@@ -22,11 +24,7 @@ APlayerPawn::APlayerPawn()
 	PawnMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PawnMesh"));
 	PawnMesh->SetupAttachment(PawnCollision, NAME_None);
 
-	//CamSpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("CamSpringArm"));
-	//CamSpringArm->SetupAttachment(RootComponent);
-
 	PawnCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("PawnCamera"));
-	//PawnCamera->SetupAttachment(CamSpringArm);
 
 	ShootComponent = CreateDefaultSubobject<UShootComponent>(TEXT("ShootComponent"));
 }
@@ -36,10 +34,32 @@ void APlayerPawn::PossessedBy(AController * NewController)
 	PlayerController = Cast<APlayerController>(NewController);
 }
 
+void APlayerPawn::ExplodePawn()
+{
+
+}
+
+void APlayerPawn::ExplodePawn_Implementation()
+{
+	SetActorEnableCollision(false);
+
+	GetWorld()->GetTimerManager().SetTimer();
+}
+
+void APlayerPawn::RecoverPawn()
+{
+
+}
+
+void APlayerPawn::RecoverPawn_Implementation()
+{
+	SetActorEnableCollision(true);
+}
+
 
 bool APlayerPawn::CanBeDamaged_Implementation()
 {
-	return CanRecieveDamage;
+	return bCanBeDamaged;
 }
 
 
@@ -47,10 +67,17 @@ void APlayerPawn::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	//nActorBeginOverlap.AddDynamic(this, &);
+	//ActorBeginOverlap.AddDynamic(this, &);
 }
 
-
+float APlayerPawn::TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController * InstigatedBy, AActor * DamageCauser)
+{
+	if (!CanBeDamaged_Implementation()) return 0.f;
+	ExplodePawn();
+	Super::TakeDamage(Damage, DamageEvent, InstigatedBy, DamageCauser);
+	PawnDamaged.Broadcast();
+	return Damage;
+}
 
 // Called every frame
 void APlayerPawn::Tick(float DeltaTime)
@@ -71,13 +98,7 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	InputComponent->BindTouch(IE_Repeat, this, &APlayerPawn::OnTouchMove);
 }
 
-float APlayerPawn::TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController * InstigatedBy, AActor * DamageCauser)
-{
-	if (!CanBeDamaged_Implementation()) return 0.f;
-	
-	Super::TakeDamage(Damage, DamageEvent, InstigatedBy, DamageCauser);
-	return Damage;
-}
+
 
 void APlayerPawn::OnTouchMove(ETouchIndex::Type FingerIndex, FVector Location)
 {
@@ -91,14 +112,11 @@ void APlayerPawn::OnTouchMove(ETouchIndex::Type FingerIndex, FVector Location)
 	
 	SetActorLocation(NewLocation);
 
-	//AddActorLocalOffset(FVector(TouchDeltaMove.Y, TouchDeltaMove.X*-1.f, 0.f));
-
 	TouchLocation = FVector2D(Location.X, Location.Y);
 }
 
 void APlayerPawn::OnTouchPress(ETouchIndex::Type FingerIndex, FVector Location)
 {
-	//UE_LOG(LogTemp, Log, TEXT("Touch press : %s"), *TouchLocation.ToString());
 	TouchLocation = FVector2D(Location.X, Location.Y);
 }
 

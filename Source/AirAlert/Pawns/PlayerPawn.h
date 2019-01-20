@@ -7,6 +7,8 @@
 #include "Components/ShootComponent.h"
 #include "PlayerPawn.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPawnDamagedEvent);
+
 UCLASS()
 class AIRALERT_API APlayerPawn : public APawn
 {
@@ -20,16 +22,21 @@ protected:
 
 	virtual void BeginPlay() override;
 
+	virtual float TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* InstigatedBy, AActor* DamageCauser) override;
+
 	void OnTouchMove(ETouchIndex::Type FingerIndex, FVector Location);
 
 	void OnTouchPress(ETouchIndex::Type FingerIndex, FVector Location);
 	
 	virtual void PossessedBy(AController* NewController) override;
-	
-	UFUNCTION(BlueprintNativeEvent, Category = "Healths")
-		bool CanBeDamaged();
-	bool CanBeDamaged_Implementation();
-	
+
+	UPROPERTY(BlueprintNativeEvent, Category = "Healths")
+	void ExplodePawn();
+	void ExplodePawn_Implementation();
+	UPROPERTY(BlueprintNativeEvent, Category = "Healths")
+	void RecoverPawn();
+	void RecoverPawn_Implementation();
+		
 	APlayerController* PlayerController;
 	
 	FVector2D MoveLimit;
@@ -42,27 +49,29 @@ private:
 public:	
 	
 	virtual void Tick(float DeltaTime) override;
-	
+
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
-	virtual float TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* InstigatedBy, AActor* DamageCauser) override;
 
+	UFUNCTION(BlueprintPure, BlueprintNativeEvent, Category = "Healths")
+		bool CanBeDamaged();
+		bool CanBeDamaged_Implementation();
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Pawn")
-	UBoxComponent* PawnCollision;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pawn")
+		UBoxComponent* PawnCollision;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Pawn")
-	UStaticMeshComponent* PawnMesh;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Pawn")
+		UStaticMeshComponent* PawnMesh;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Pawn")
-	UCameraComponent* PawnCamera;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pawn")
+		UCameraComponent* PawnCamera;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Shooting")
-	UShootComponent* ShootComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Shooting")
+		UShootComponent* ShootComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Controls")
-	float TouchMoveSensetivity;
+		float TouchMoveSensetivity;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Controls")
-		bool CanRecieveDamage;
+	UPROPERTY(BlueprintAssignable, Category = "Healths")
+		FPawnDamagedEvent PawnDamaged;
+
 };
