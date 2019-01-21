@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "PlayerPawn.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/InputComponent.h"
@@ -9,14 +7,12 @@
 
 
 
-// Sets default values
 APlayerPawn::APlayerPawn()
 	:
 	TouchMoveSensetivity(1.f),
 	MoveLimit(FVector2D(700.f, 800.f))
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+ 	PrimaryActorTick.bCanEverTick = true;
 
 	PawnCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("PawnCollision"));
 	RootComponent = PawnCollision;
@@ -34,40 +30,28 @@ void APlayerPawn::PossessedBy(AController * NewController)
 	PlayerController = Cast<APlayerController>(NewController);
 }
 
-void APlayerPawn::ExplodePawn()
+bool APlayerPawn::CanBeDamaged_Implementation()
 {
-
+	return bCanBeDamaged;
 }
 
 void APlayerPawn::ExplodePawn_Implementation()
 {
 	SetActorEnableCollision(false);
 
-	GetWorld()->GetTimerManager().SetTimer();
-}
-
-void APlayerPawn::RecoverPawn()
-{
-
+	ShootComponent->StopShooting();
 }
 
 void APlayerPawn::RecoverPawn_Implementation()
 {
 	SetActorEnableCollision(true);
+
+	ShootComponent->StartShooting();
 }
-
-
-bool APlayerPawn::CanBeDamaged_Implementation()
-{
-	return bCanBeDamaged;
-}
-
 
 void APlayerPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	//ActorBeginOverlap.AddDynamic(this, &);
 }
 
 float APlayerPawn::TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController * InstigatedBy, AActor * DamageCauser)
@@ -79,13 +63,9 @@ float APlayerPawn::TakeDamage(float Damage, const FDamageEvent& DamageEvent, ACo
 	return Damage;
 }
 
-// Called every frame
 void APlayerPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
-	//APlayerController* PlayerController = Cast<APlayerController>(GetController());
-	
 }
 
 
@@ -94,7 +74,6 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &APlayerPawn::OnTouchPress);
-	//InputComponent->BindTouch(EInputEvent::IE_Released, this, &APlayerPawn::OnTouchRelease);
 	InputComponent->BindTouch(IE_Repeat, this, &APlayerPawn::OnTouchMove);
 }
 

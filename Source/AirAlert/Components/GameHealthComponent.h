@@ -10,26 +10,24 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FHealthsEndedEvent);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHealthsChangedEvent, int, ChangeValue);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+
 class AIRALERT_API UGameHealthComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
+
 	UGameHealthComponent();
 
 protected:
-	// Called when the game starts
+
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, Category = "Game Health")
 	int Healths;
 	
-	UFUNCTION()
-	void OnPlayerDamaged(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Insigator, AActor* DamageCause);
 
 public:	
-	// Called every frame
 	
 	UFUNCTION(BlueprintCallable, Category = "Game Health")
 		void ChangeHealth(int ByValue);

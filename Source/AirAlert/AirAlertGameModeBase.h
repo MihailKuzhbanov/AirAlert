@@ -16,6 +16,20 @@ class AIRALERT_API AAirAlertGameModeBase : public AGameModeBase
 	AAirAlertGameModeBase();
 
 	virtual void BeginPlay() override;
+
+protected:
+
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Game")
+		void ExplodePawn();
+		void ExplodePawn_Implementation();
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Game")
+		void RecoverPawn();
+		void RecoverPawn_Implementation();
+
+	FTimerHandle RecoverTimer;
+
 public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Enemies")
@@ -30,4 +44,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Game")
 		void EndGame();
 
+	UPROPERTY(BlueprintReadWrite, Category = "Game")
+		float PlayerRecoverTime;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Game")
+		class APlayerPawn* PlayerPawn;
 };

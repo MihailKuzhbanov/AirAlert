@@ -29,13 +29,6 @@ protected:
 	void OnTouchPress(ETouchIndex::Type FingerIndex, FVector Location);
 	
 	virtual void PossessedBy(AController* NewController) override;
-
-	UPROPERTY(BlueprintNativeEvent, Category = "Healths")
-	void ExplodePawn();
-	void ExplodePawn_Implementation();
-	UPROPERTY(BlueprintNativeEvent, Category = "Healths")
-	void RecoverPawn();
-	void RecoverPawn_Implementation();
 		
 	APlayerController* PlayerController;
 	
@@ -44,7 +37,6 @@ protected:
 private:
 
 	FVector2D TouchLocation;
-
 
 public:	
 	
@@ -71,7 +63,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Controls")
 		float TouchMoveSensetivity;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Controls")
+		float RecoverTime;
+
 	UPROPERTY(BlueprintAssignable, Category = "Healths")
 		FPawnDamagedEvent PawnDamaged;
 
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Healths")
+		void ExplodePawn();
+		void ExplodePawn_Implementation();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Healths")
+		void RecoverPawn();
+		void RecoverPawn_Implementation();
 };
