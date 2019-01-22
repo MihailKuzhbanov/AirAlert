@@ -38,6 +38,10 @@ private:
 
 	FVector2D TouchLocation;
 
+	bool Touching;
+
+	UMaterialInterface* PawnMaterial;
+
 public:	
 	
 	virtual void Tick(float DeltaTime) override;
@@ -76,4 +80,7 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Healths")
 		void RecoverPawn();
 		void RecoverPawn_Implementation();
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Pawn")
+		UMaterialInterface* RecoverMaterial;
 };

@@ -27,7 +27,8 @@ void AAirAlertGameModeBase::ExplodePawn_Implementation()
 	
 	HealthsComponent->ChangeHealth(-1);
 
-	GetWorld()->GetTimerManager().SetTimer(RecoverTimer, this, &AAirAlertGameModeBase::RecoverPawn, PlayerRecoverTime, false);
+	if (!IsGameOver)
+		GetWorld()->GetTimerManager().SetTimer(RecoverTimer, this, &AAirAlertGameModeBase::RecoverPawn, PlayerRecoverTime, false);
 }
 
 void AAirAlertGameModeBase::RecoverPawn_Implementation()
@@ -37,6 +38,12 @@ void AAirAlertGameModeBase::RecoverPawn_Implementation()
 
 void AAirAlertGameModeBase::EndGame()
 {
+	IsGameOver = true;
+	
+	EnemySpawnController->SetActive(false);
+
+	PlayerPawn->SetActorHiddenInGame(true);
+
 	GameOver.Broadcast();
 
 	UE_LOG(LogTemp, Log, TEXT("GAME OVER!!!"))

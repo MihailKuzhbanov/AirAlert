@@ -4,6 +4,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
 #include "TimerManager.h"
+//#include "Materials/MaterialInstanceDynamic.h"
 
 
 
@@ -40,6 +41,8 @@ void APlayerPawn::ExplodePawn_Implementation()
 	SetActorEnableCollision(false);
 
 	ShootComponent->StopShooting();
+
+	PawnMesh->SetMaterial(0, RecoverMaterial);
 }
 
 void APlayerPawn::RecoverPawn_Implementation()
@@ -47,11 +50,17 @@ void APlayerPawn::RecoverPawn_Implementation()
 	SetActorEnableCollision(true);
 
 	ShootComponent->StartShooting();
+
+	PawnMesh->SetMaterial(0, PawnMaterial);
 }
 
 void APlayerPawn::BeginPlay()
 {
 	Super::BeginPlay();
+
+
+	PawnMaterial = PawnMesh->GetMaterial(0);
+	//UMaterialInstanceDynamic* DynMaterial = UMaterialInstanceDynamic::Create(Material, this);
 }
 
 float APlayerPawn::TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController * InstigatedBy, AActor * DamageCauser)

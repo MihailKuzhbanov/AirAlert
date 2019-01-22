@@ -50,6 +50,3 @@ void UEnemySpawnController::SpawnEnemy()
 		GetWorld()->GetTimerManager().ClearTimer(EnemySpawnTimer);
 	}
 }
-
-
-

@@ -34,13 +34,15 @@ class AIRALERT_API UEnemySpawnController : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
+
 	//UEnemySpawnController();
 
 protected:
-	// Called when the game starts
+
 	virtual void BeginPlay() override;
+
 	virtual void Deactivate() override;
+	
 	void StartSpawnStage();
 	
 	void SpawnEnemy();
@@ -55,9 +57,7 @@ protected:
 	FRandomStream Random;
 
 public:	
-	// Called every frame
-	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
 	TArray<FEnemySpawnInfo> SpawnStages;
 	
