@@ -48,6 +48,7 @@ void AShootProjectile::OnProjectileOverlap(UPrimitiveComponent* OverlappedComp, 
 	AController* Instigator = PawnOwner->GetController();
 	if (Instigator)
 	UGameplayStatics::ApplyDamage(OtherActor, Damage, Instigator, this, UDamageType::StaticClass());
+	
 	Destroy();
 }
 
