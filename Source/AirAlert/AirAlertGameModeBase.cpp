@@ -50,3 +50,8 @@ void AAirAlertGameModeBase::EndGame()
 
 	UE_LOG(LogTemp, Log, TEXT("GAME OVER!!!"))
 }
+
+void AAirAlertGameModeBase::AddPoints(int Points)
+{
+	GamePoints += Points;
+}

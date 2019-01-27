@@ -4,6 +4,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework//DamageType.h"
 #include "Components/StaticMeshComponent.h"
+#include "AirAlertGameModeBase.h"
 
 
 
@@ -35,9 +36,10 @@ void AEnemyPawn::BeginPlay()
 
 void AEnemyPawn::DestroyPawn()
 {
+	AAirAlertGameModeBase* Gamemode = Cast<AAirAlertGameModeBase>(UGameplayStatics::GetGameMode(this));
+	if (Gamemode) Gamemode->AddPoints(DestroyPoints);
 	Destroy();
-	//VFX Call
-	//Statistic change
+
 }
 
 
