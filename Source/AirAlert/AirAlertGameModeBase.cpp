@@ -41,14 +41,11 @@ void AAirAlertGameModeBase::EndGame()
 	IsGameOver = true;
 	
 	EnemySpawnController->SetActive(false);
-
-	//PlayerPawn->SetActorHiddenInGame(true);
-
+		
 	GameOver.Broadcast();
 
 	UGameplayStatics::GetPlayerPawn(this, 0)->Destroy();
-
-	UE_LOG(LogTemp, Log, TEXT("GAME OVER!!!"))
+		
 }
 
 void AAirAlertGameModeBase::AddPoints(int Points)

@@ -18,7 +18,5 @@ void APlaygroundBorder::NotifyActorEndOverlap(AActor * OtherActor)
 
 	if (Cast<APlayerPawn>(OtherActor)) return;
 
-	UE_LOG(LogTemp, Log, TEXT("OUT OF PLAYGROUND"));
-
 	OtherActor->Destroy();
 }

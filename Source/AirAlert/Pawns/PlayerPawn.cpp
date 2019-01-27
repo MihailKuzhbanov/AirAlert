@@ -17,6 +17,8 @@ APlayerPawn::APlayerPawn()
 
 	PawnCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("PawnCollision"));
 	RootComponent = PawnCollision;
+	PawnCollision->SetCollisionProfileName("Pawn");
+	//PawnCollision->SetCollisionResponseToChannel(ECC_Physicsbody, ECR_Ignore);
 
 	PawnMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PawnMesh"));
 	PawnMesh->SetupAttachment(PawnCollision, NAME_None);
@@ -60,7 +62,6 @@ void APlayerPawn::BeginPlay()
 
 
 	PawnMaterial = PawnMesh->GetMaterial(0);
-	//UMaterialInstanceDynamic* DynMaterial = UMaterialInstanceDynamic::Create(Material, this);
 }
 
 float APlayerPawn::TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController * InstigatedBy, AActor * DamageCauser)

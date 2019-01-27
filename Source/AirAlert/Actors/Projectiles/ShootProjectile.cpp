@@ -12,8 +12,7 @@ AShootProjectile::AShootProjectile()
 	:
 	ProjectileSpeed(2000.f)
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+ 	PrimaryActorTick.bCanEverTick = true;
 
 	Collision = CreateDefaultSubobject<USphereComponent>(TEXT("ProjectileCollision"));
 	RootComponent = Collision;
@@ -34,6 +33,7 @@ void AShootProjectile::BeginPlay()
 	if (GetOwner())
 	{
 		Collision->IgnoreActorWhenMoving(GetOwner(), true);
+		
 	}
 
 	Collision->OnComponentBeginOverlap.AddDynamic(this, &AShootProjectile::OnProjectileOverlap);
