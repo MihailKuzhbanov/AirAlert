@@ -5,6 +5,7 @@
 
 ABonusOne::ABonusOne()
 {
+	PrimaryActorTick.bCanEverTick = true;
 
 	Collision = CreateDefaultSubobject<USphereComponent>(TEXT("BonusCollision"));
 	RootComponent = Collision;
