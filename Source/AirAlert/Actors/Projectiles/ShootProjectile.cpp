@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "ShootProjectile.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/DamageType.h"
@@ -7,7 +5,6 @@
 #include "Components/StaticMeshComponent.h"
 
 
-// Sets default values
 AShootProjectile::AShootProjectile()
 	:
 	ProjectileSpeed(2000.f)
@@ -25,7 +22,6 @@ AShootProjectile::AShootProjectile()
 
 }
 
-// Called when the game starts or when spawned
 void AShootProjectile::BeginPlay()
 {
 	Super::BeginPlay();
@@ -43,6 +39,7 @@ void AShootProjectile::BeginPlay()
 void AShootProjectile::OnProjectileOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 BodyIndex, bool Sweep, const FHitResult& Hit)
 {
 	if (!OtherActor || !Cast<APawn>(OtherActor)) return;
+	
 	if (!GetOwner()) return;
 	APawn* PawnOwner = Cast<APawn>(GetOwner());
 	if (!PawnOwner) return;
@@ -53,7 +50,6 @@ void AShootProjectile::OnProjectileOverlap(UPrimitiveComponent* OverlappedComp, 
 	Destroy();
 }
 
-// Called every frame
 void AShootProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
