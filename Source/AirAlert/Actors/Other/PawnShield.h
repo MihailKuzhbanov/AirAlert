@@ -11,16 +11,19 @@ class AIRALERT_API APawnShield : public AActor
 {
 	GENERATED_BODY()
 	
+
+protected:
+
+	FTimerHandle ShieldTimer;
+
+	class APlayerPawn* ShieldForPawn;
+
 public:	
 
 	APawnShield();
 
-
-
-public:	
-
 	UFUNCTION(BlueprintCallable, Category = "Shield")
-		void ActivateShield(APlayerPawn* PlayerPawn);
+		void ActivateShield(APlayerPawn* PlayerPawn, float TimeShield);
 
 	UFUNCTION(BlueprintCallable, Category = "Shield")
 		void DeactivateShield();

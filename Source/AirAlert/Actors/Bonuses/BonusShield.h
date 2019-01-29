@@ -18,7 +18,7 @@ protected:
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield")
-		int TimeShield;
+		float TimeShield;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield")
 		TSubclassOf<APawnShield> ShieldClass;

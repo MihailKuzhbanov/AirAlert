@@ -6,7 +6,7 @@
 
 UGameHealthComponent::UGameHealthComponent()
 	:
-	Healths(3)
+	Healths(5)
 {
 
 	PrimaryComponentTick.bCanEverTick = true;

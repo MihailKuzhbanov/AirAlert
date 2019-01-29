@@ -47,9 +47,9 @@ void AEnemyPawn::OnEnemyOverlap(AActor* OverlappedActor, AActor* OtherActor)
 {
 	if (OtherActor != UGameplayStatics::GetPlayerPawn(this, 0)) return;
 
-	UGameplayStatics::ApplyDamage(OtherActor, 100.f, GetController(), this, UDamageType::StaticClass());
+	float AppliedDamage = UGameplayStatics::ApplyDamage(OtherActor, 100.f, GetController(), this, UDamageType::StaticClass());
 
-	DestroyPawn();
+	if (AppliedDamage > 0) DestroyPawn();
 }
 
 void AEnemyPawn::Tick(float DeltaTime)

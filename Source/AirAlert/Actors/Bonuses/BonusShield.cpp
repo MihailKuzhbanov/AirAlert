@@ -12,7 +12,8 @@ void ABonusShield::BonusCollected_Implementation()
 	if (!PlayerPawn) return;
 
 	APawnShield* Shield = GetWorld()->SpawnActor<APawnShield>(ShieldClass);
-	Shield->ActivateShield(PlayerPawn);
+	Shield->ActivateShield(PlayerPawn, TimeShield);
+	
 
 	Super::BonusCollected_Implementation();
 

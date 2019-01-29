@@ -1,16 +1,24 @@
 #include "PawnShield.h"
 #include "Pawns/PlayerPawn.h"
+#include "Engine/World.h"
+#include "TimerManager.h"
+#include "Actors/Bonuses/BonusShield.h"
 
 APawnShield::APawnShield()
+	
 {
- 	
-	PrimaryActorTick.bCanEverTick = true;
-
+	
 }
 
-void APawnShield::ActivateShield(APlayerPawn* PlayerPawn)
+void APawnShield::ActivateShield(APlayerPawn* PlayerPawn, float ShieldTime)
 {
+	if (!PlayerPawn)
+	{
+		Destroy();
+		return;
+	}
 
+	ShieldForPawn = PlayerPawn;
 	PlayerPawn->bCanBeDamaged = false;
 
 	FAttachmentTransformRules AttachRules = FAttachmentTransformRules(
@@ -22,11 +30,17 @@ void APawnShield::ActivateShield(APlayerPawn* PlayerPawn)
 
 	AttachToActor(PlayerPawn, AttachRules);
 
+	GetWorld()->GetTimerManager().SetTimer(ShieldTimer, this, &APawnShield::DeactivateShield, ShieldTime, false);
+
 }
 
 void APawnShield::DeactivateShield()
 {
 
-	//PlayerPawn->bCanBeDamaged = true;
+	if (!ShieldForPawn) return;
+
+	ShieldForPawn->bCanBeDamaged = true;
+
+	Destroy();
 
 }
