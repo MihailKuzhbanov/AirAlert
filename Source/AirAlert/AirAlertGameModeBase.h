@@ -4,9 +4,25 @@
 #include "GameFramework/GameModeBase.h"
 #include "Components/EnemySpawnController.h"
 #include "Components/GameHealthComponent.h"
+#include "Components/ShootComponent.h"
 #include "AirAlertGameModeBase.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FGameOverEvent);
+
+USTRUCT(BlueprintType)
+struct FShootInfoLevel
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shooting")
+		TArray<FShootInfo> ShootInfos;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shooting")
+		float ShootPeriod;
+
+};
 
 UCLASS()
 class AIRALERT_API AAirAlertGameModeBase : public AGameModeBase
@@ -49,6 +65,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Game")
 		void AddPoints(int Points);
 
+	UFUNCTION(BlueprintCallable, Category = "Game")
+		bool ChangeShootLevel(bool Up);
+
 	UPROPERTY(BlueprintReadWrite, Category = "Game")
 		float PlayerRecoverTime;
 
@@ -57,4 +76,11 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Game")
 		int GamePoints;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Shooting")
+		TArray<FShootInfoLevel> ShootInfoLevels;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Shooting")
+		int CurrentShootLevel;
+
 };

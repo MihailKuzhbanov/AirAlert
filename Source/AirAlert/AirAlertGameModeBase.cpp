@@ -4,7 +4,8 @@
 
 AAirAlertGameModeBase::AAirAlertGameModeBase()
 	:
-	PlayerRecoverTime(3)
+	PlayerRecoverTime(3),
+	CurrentShootLevel(-1)
 {
 	EnemySpawnController = CreateDefaultSubobject<UEnemySpawnController>(TEXT("EnemySpawnController"));
 	HealthsComponent = CreateDefaultSubobject<UGameHealthComponent>(TEXT("HealthsComponent"));
@@ -17,6 +18,9 @@ void AAirAlertGameModeBase::BeginPlay()
 	HealthsComponent->HealthsEnded.AddDynamic(this, &AAirAlertGameModeBase::EndGame);
 
 	PlayerPawn = Cast<APlayerPawn>(UGameplayStatics::GetPlayerPawn(this, 0));
+	if (!PlayerPawn) return;
+
+	ChangeShootLevel(true);
 
 	PlayerPawn->PawnDamaged.AddDynamic(this, &AAirAlertGameModeBase::ExplodePawn);
 }
@@ -51,4 +55,21 @@ void AAirAlertGameModeBase::EndGame()
 void AAirAlertGameModeBase::AddPoints(int Points)
 {
 	GamePoints += Points;
+}
+
+bool AAirAlertGameModeBase::ChangeShootLevel(bool Up)
+{
+	PlayerPawn = Cast<APlayerPawn>(UGameplayStatics::GetPlayerPawn(this, 0));
+	if (!PlayerPawn) return false;
+
+	int NewLevel = FMath::Clamp(CurrentShootLevel + (Up ? 1 : -1), 0, ShootInfoLevels.Num()-1);
+
+	if (NewLevel == CurrentShootLevel) return false;
+
+	CurrentShootLevel = NewLevel;
+
+	PlayerPawn->ShootComponent->ShootInfos = ShootInfoLevels[CurrentShootLevel].ShootInfos;
+	PlayerPawn->ShootComponent->ShootPeriod = ShootInfoLevels[CurrentShootLevel].ShootPeriod;
+	
+	return true;
 }

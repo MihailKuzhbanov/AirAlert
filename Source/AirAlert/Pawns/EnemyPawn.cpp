@@ -68,7 +68,8 @@ void AEnemyPawn::SpawnBonuses()
 
 	for (FBonusChance Bonus : PossibleBonuses)
 	{
-		if (Random.RandRange(0, 100.f) < Bonus.Chance)
+		float RandChance = Random.RandRange(0.f, 100.f);
+		if (RandChance < Bonus.Chance)
 		{
 			GetWorld()->SpawnActor<ABonusOne>(Bonus.BonusClass, GetActorLocation(), FRotator(0.f), SpawnParameters);
 		}
