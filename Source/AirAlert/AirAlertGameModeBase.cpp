@@ -22,6 +22,10 @@ void AAirAlertGameModeBase::BeginPlay()
 
 	ChangeShootLevel(true, 1);
 
+	MaxHealths = HealthsComponent->GetHealth();
+
+	UE_LOG(LogTemp, Log, TEXT("Max Health: %d"), MaxHealths);
+
 	PlayerPawn->PawnDamaged.AddDynamic(this, &AAirAlertGameModeBase::ExplodePawn);
 }
 
@@ -30,6 +34,8 @@ void AAirAlertGameModeBase::ExplodePawn_Implementation()
 	PlayerPawn->ExplodePawn();
 	
 	HealthsComponent->ChangeHealth(-1);
+
+	ChangeShootLevel(false, -1);
 
 	if (!IsGameOver)
 		GetWorld()->GetTimerManager().SetTimer(RecoverTimer, this, &AAirAlertGameModeBase::RecoverPawn, PlayerRecoverTime, false);

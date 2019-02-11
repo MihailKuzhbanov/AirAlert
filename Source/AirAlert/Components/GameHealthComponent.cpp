@@ -1,5 +1,3 @@
-
-
 #include "GameHealthComponent.h"
 #include "GameFramework/Pawn.h"
 #include "Kismet/GameplayStatics.h"
@@ -42,6 +40,12 @@ void UGameHealthComponent::ChangeHealth(int ByValue)
 
 int UGameHealthComponent::GetHealth()
 {
+	return Healths;
+}
+
+int UGameHealthComponent::SetHealth(int Value)
+{
+	Healths = Value;
 	return Healths;
 }
 

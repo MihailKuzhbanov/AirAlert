@@ -23,7 +23,6 @@ protected:
 	
 	virtual void BeginPlay() override;
 
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Health")
 		float Health;
 
 	UFUNCTION()

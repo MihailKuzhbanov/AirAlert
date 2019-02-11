@@ -9,7 +9,7 @@ void ABonusShield::BonusCollected_Implementation()
 	APawn* Pawn = UGameplayStatics::GetPlayerPawn(this, 0);
 	if (!Pawn) return;
 	APlayerPawn* PlayerPawn = Cast<APlayerPawn>(Pawn);
-	if (!PlayerPawn) return;
+	if (!PlayerPawn || !PlayerPawn->bCanBeDamaged) return;
 
 	APawnShield* Shield = GetWorld()->SpawnActor<APawnShield>(ShieldClass);
 	Shield->ActivateShield(PlayerPawn, TimeShield);

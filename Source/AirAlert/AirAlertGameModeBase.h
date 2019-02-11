@@ -83,4 +83,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Shooting")
 		int CurrentShootLevel;
 
+	UPROPERTY(BlueprintReadOnly, Category = "Shooting")
+		int MaxHealths;
+
 };

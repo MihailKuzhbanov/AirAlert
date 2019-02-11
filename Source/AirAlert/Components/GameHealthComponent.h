@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -34,6 +32,9 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Game Health")
 		int GetHealth();
+
+	UFUNCTION(BlueprintPure, Category = "Game Health")
+		int SetHealth(int Value);
 
 	UPROPERTY(BlueprintAssignable, Category = "Game Health")
 		FHealthsEndedEvent HealthsEnded;
