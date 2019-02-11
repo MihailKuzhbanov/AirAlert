@@ -13,5 +13,10 @@ protected:
 
 	virtual void BonusCollected_Implementation() override;
 	
-	
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bonus")
+		int LevelsAdded;
 };
+
+

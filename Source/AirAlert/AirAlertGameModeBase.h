@@ -66,7 +66,7 @@ public:
 		void AddPoints(int Points);
 
 	UFUNCTION(BlueprintCallable, Category = "Game")
-		bool ChangeShootLevel(bool Up);
+		bool ChangeShootLevel(bool Up, int Levels);
 
 	UPROPERTY(BlueprintReadWrite, Category = "Game")
 		float PlayerRecoverTime;

@@ -8,7 +8,9 @@ void ABonusShootUp::BonusCollected_Implementation()
 	AAirAlertGameModeBase* Gamemode = Cast<AAirAlertGameModeBase>(UGameplayStatics::GetGameMode(this));
 	if (!Gamemode) return;
 
-	Gamemode->ChangeShootLevel(true);
+	
+
+	Gamemode->ChangeShootLevel(true,LevelsAdded);
 
 	Super::BonusCollected_Implementation();
 

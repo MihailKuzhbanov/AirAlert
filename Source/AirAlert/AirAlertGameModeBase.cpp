@@ -20,7 +20,7 @@ void AAirAlertGameModeBase::BeginPlay()
 	PlayerPawn = Cast<APlayerPawn>(UGameplayStatics::GetPlayerPawn(this, 0));
 	if (!PlayerPawn) return;
 
-	ChangeShootLevel(true);
+	ChangeShootLevel(true, 1);
 
 	PlayerPawn->PawnDamaged.AddDynamic(this, &AAirAlertGameModeBase::ExplodePawn);
 }
@@ -57,12 +57,13 @@ void AAirAlertGameModeBase::AddPoints(int Points)
 	GamePoints += Points;
 }
 
-bool AAirAlertGameModeBase::ChangeShootLevel(bool Up)
+bool AAirAlertGameModeBase::ChangeShootLevel(bool Up, int Levels)
 {
 	PlayerPawn = Cast<APlayerPawn>(UGameplayStatics::GetPlayerPawn(this, 0));
 	if (!PlayerPawn) return false;
 
-	int NewLevel = FMath::Clamp(CurrentShootLevel + (Up ? 1 : -1), 0, ShootInfoLevels.Num()-1);
+	
+	int NewLevel = FMath::Clamp(CurrentShootLevel + (Up ? Levels + 0 : -1), 0, ShootInfoLevels.Num()-1);
 
 	if (NewLevel == CurrentShootLevel) return false;
 
