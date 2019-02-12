@@ -40,4 +40,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Shooting")
 		float Damage;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Shooting")
+		int Causer;
 };

@@ -2,24 +2,27 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/DamageType.h"
 #include "GameFramework/Pawn.h"
+#include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 
 
 AShootProjectile::AShootProjectile()
 	:
-	ProjectileSpeed(2000.f)
+	ProjectileSpeed(2000.f),
+	Causer(0)
 {
  	PrimaryActorTick.bCanEverTick = true;
 
 	Collision = CreateDefaultSubobject<USphereComponent>(TEXT("ProjectileCollision"));
 	RootComponent = Collision;
+	Collision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMesh"));
 	Mesh->SetupAttachment(Collision, NAME_None);
 	Mesh->SetCollisionProfileName("NoCollision");
 
-
+	
 }
 
 void AShootProjectile::BeginPlay()
@@ -28,8 +31,12 @@ void AShootProjectile::BeginPlay()
 
 	if (GetOwner())
 	{
-		Collision->IgnoreActorWhenMoving(GetOwner(), true);
 		
+		UBoxComponent* OwnerCollision = GetOwner()->FindComponentByClass<UBoxComponent>();
+		Collision->IgnoreComponentWhenMoving(OwnerCollision, true);
+		OwnerCollision->IgnoreComponentWhenMoving(Collision, true);
+
+		Collision->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	}
 
 	Collision->OnComponentBeginOverlap.AddDynamic(this, &AShootProjectile::OnProjectileOverlap);

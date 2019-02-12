@@ -18,6 +18,8 @@ APlayerPawn::APlayerPawn()
 	PawnCollision->SetCollisionProfileName("Pawn");
 	//PawnCollision->SetCollisionResponseToChannel(ECC_Physicsbody, ECR_Ignore);
 
+	
+
 	PawnMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PawnMesh"));
 	PawnMesh->SetupAttachment(PawnCollision, NAME_None);
 
