@@ -32,6 +32,7 @@ protected:
 		
 	APlayerController* PlayerController;
 	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Pawn")
 	FVector2D MoveLimit;
 
 private:
