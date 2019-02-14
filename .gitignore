@@ -72,3 +72,8 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+apk/Android_Multi/Uninstall_AirAlert-armv7-es2.bat
+apk/Android_Multi/main.1.com.YourCompany.AirAlert.obb
+apk/Android_Multi/Install_AirAlert-armv7-es2.bat
+apk/Android_Multi/AirAlert.rar
+apk/Android_Multi/AirAlert-armv7-es2.apk
