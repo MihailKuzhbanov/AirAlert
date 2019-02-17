@@ -5,7 +5,8 @@
 AAirAlertGameModeBase::AAirAlertGameModeBase()
 	:
 	PlayerRecoverTime(3),
-	CurrentShootLevel(-1)
+	CurrentShootLevel(-1),
+	IncreaseDifficultyPriod(1.f)
 {
 	EnemySpawnController = CreateDefaultSubobject<UEnemySpawnController>(TEXT("EnemySpawnController"));
 	HealthsComponent = CreateDefaultSubobject<UGameHealthComponent>(TEXT("HealthsComponent"));
@@ -27,6 +28,8 @@ void AAirAlertGameModeBase::BeginPlay()
 	UE_LOG(LogTemp, Log, TEXT("Max Health: %d"), MaxHealths);
 
 	PlayerPawn->PawnDamaged.AddDynamic(this, &AAirAlertGameModeBase::ExplodePawn);
+
+	GetWorld()->GetTimerManager().SetTimer(IncreaseTimer, this, &AAirAlertGameModeBase::IncreaseDifficulty, IncreaseDifficultyPriod, true);
 }
 
 void AAirAlertGameModeBase::ExplodePawn_Implementation()
@@ -58,6 +61,13 @@ void AAirAlertGameModeBase::EndGame()
 		
 }
 
+void AAirAlertGameModeBase::IncreaseDifficulty()
+{
+
+	EnemySpawnController->ChangeStageTimeMultiplier = FMath::Max(EnemySpawnController->ChangeStageTimeMultiplier*0.95, 0.4);
+
+}
+
 void AAirAlertGameModeBase::AddPoints(int Points)
 {
 	GamePoints += Points;
@@ -80,3 +90,5 @@ bool AAirAlertGameModeBase::ChangeShootLevel(bool Up, int Levels)
 	
 	return true;
 }
+
+

@@ -70,4 +70,5 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
 		float ChangeStageTimeMultiplier;
 
+
 };

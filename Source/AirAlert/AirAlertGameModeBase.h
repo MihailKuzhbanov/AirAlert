@@ -45,6 +45,7 @@ protected:
 		void RecoverPawn_Implementation();
 
 	FTimerHandle RecoverTimer;
+	FTimerHandle IncreaseTimer;
 
 	bool IsGameOver;
 
@@ -68,8 +69,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Game")
 		bool ChangeShootLevel(bool Up, int Levels);
 
+	UFUNCTION(BlueprintCallable, Category = "Game")
+		void IncreaseDifficulty();
+
 	UPROPERTY(BlueprintReadWrite, Category = "Game")
 		float PlayerRecoverTime;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game")
+		float IncreaseDifficultyPriod;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Game")
 		class APlayerPawn* PlayerPawn;
@@ -85,5 +92,7 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Shooting")
 		int MaxHealths;
+
+
 
 };
