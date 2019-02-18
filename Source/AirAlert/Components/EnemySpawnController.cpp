@@ -44,8 +44,8 @@ void UEnemySpawnController::SpawnEnemy()
 	GetWorld()->SpawnActor<AEnemyPawn>(SpawnStage.EnemyClass, SpawnStage.SpawnTranform, SpawnParameters);
 	
 	EnemiesSpawned++;
-	if (EnemiesSpawned >= SpawnStage.NumOfEnemies)
+	if (EnemiesSpawned < SpawnStage.NumOfEnemies)
 	{
-		GetWorld()->GetTimerManager().ClearTimer(EnemySpawnTimer);
+		GetWorld()->GetTimerManager().SetTimer(EnemySpawnTimer, this, &UEnemySpawnController::SpawnEnemy, SpawnStage.SpawnDelay, false);
 	}
 }
