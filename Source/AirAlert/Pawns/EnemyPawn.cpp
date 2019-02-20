@@ -46,8 +46,9 @@ void AEnemyPawn::DestroyPawn()
 	//AAirAlertGameModeBase* Gamemode = Cast<AAirAlertGameModeBase>(UGameplayStatics::GetGameMode(this));
 	//if (Gamemode) Gamemode->AddPoints(DestroyPoints);
 
+	if (DestroyVFX)	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), DestroyVFX, GetActorTransform(), true);
 	Destroy();
-
+	
 }
 
 void AEnemyPawn::OnEnemyOverlap(AActor* OverlappedActor, AActor* OtherActor)

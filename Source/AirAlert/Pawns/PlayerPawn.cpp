@@ -3,6 +3,7 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
+#include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
 
 
@@ -45,6 +46,8 @@ void APlayerPawn::ExplodePawn_Implementation()
 	ShootComponent->StopShooting();
 
 	PawnMesh->SetMaterial(0, RecoverMaterial);
+
+	if (DestroyVFX)	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), DestroyVFX, GetActorTransform(), true);
 }
 
 void APlayerPawn::RecoverPawn_Implementation()
