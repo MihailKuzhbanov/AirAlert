@@ -13,7 +13,7 @@ struct FEnemySpawnInfo
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemies")
 	TSubclassOf<AEnemyPawn> EnemyClass = AEnemyPawn::StaticClass();
 
 
@@ -25,6 +25,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemies")
 	float SpawnDelay;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
+		int StartLevel;
 	
 };
 
@@ -47,7 +50,7 @@ protected:
 	
 	void SpawnEnemy();
 
-	FEnemySpawnInfo SpawnStage;
+	
 
 	int EnemiesSpawned;
 
@@ -57,8 +60,9 @@ protected:
 	FRandomStream Random;
 
 public:	
+	FEnemySpawnInfo SpawnStage;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemies")
 	TArray<FEnemySpawnInfo> SpawnStages;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
@@ -69,6 +73,5 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
 		float ChangeStageTimeMultiplier;
-
 
 };

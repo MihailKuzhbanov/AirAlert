@@ -2,8 +2,10 @@
 #include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Pawns/PlayerPawn.h"
+#include "Kismet/GameplayStatics.h"
 
 ABonusOne::ABonusOne()
+
 {
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -32,6 +34,7 @@ void ABonusOne::NotifyActorBeginOverlap(AActor * OtherActor)
 
 void ABonusOne::BonusCollected_Implementation()
 {
+	if (CollectParticle)	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), CollectParticle, GetActorTransform(), true);
 	Destroy();
 }
 

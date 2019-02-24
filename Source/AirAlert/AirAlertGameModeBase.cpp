@@ -5,7 +5,7 @@
 AAirAlertGameModeBase::AAirAlertGameModeBase()
 	:
 	PlayerRecoverTime(3),
-	CurrentShootLevel(-1),
+	CurrentShootLevel(0),
 	IncreaseDifficultyPriod(1.f)
 {
 	EnemySpawnController = CreateDefaultSubobject<UEnemySpawnController>(TEXT("EnemySpawnController"));

@@ -26,5 +26,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Shooting")
 		class USphereComponent* Collision;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Visual")
+		UParticleSystem* CollectParticle;
+
 	
 };
