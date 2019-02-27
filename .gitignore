@@ -81,3 +81,4 @@ apk/Android_Multi/main.1.com.TwoSidesGames.AirAlert.obb
 apk/Android_Multi/AirAlert-Android-Shipping-armv7-es2.apk
 apk/Android_Multi/Install_AirAlert-Android-Shipping-armv7-es2.bat
 apk/Android_Multi/Uninstall_AirAlert-Android-Shipping-armv7-es2.bat
+*.obb
